@@ -150,16 +150,21 @@ int main(int argc, char **argv)
 	}
 	file.close();
 	printf("file loaded\n");
-	std::string str("naver.com");
-	printf("%d\n",lines.find(str)!=lines.end());
-	
+	//this takes only 2sec. std::set<T>::find is O(log(n))
+	/*
+	std::string str("nave.com");
+	for(int i=0;i<10000000;i++)
+	{
+		lines.find(str)!=lines.end();
+	}
+	printf("done?%d\n",lines.find(str)!=lines.end());
+	*/
 	printf("opening library handle\n");
 	h = nfq_open();
 	if (!h) {
 		fprintf(stderr, "error during nfq_open()\n");
 		exit(1);
 	}
-
 	printf("unbinding existing nf_queue handler for AF_INET (if any)\n");
 	if (nfq_unbind_pf(h, AF_INET) < 0) {
 		fprintf(stderr, "error during nfq_unbind_pf()\n");
